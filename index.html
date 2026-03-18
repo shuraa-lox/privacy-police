@@ -2,60 +2,123 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Політика конфіденційності</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 body{
-    font-family: Arial;
+    font-family: -apple-system, BlinkMacSystemFont, Arial;
     padding:20px;
+    background:#f5f5f5;
+}
+
+.container{
+    background:white;
+    padding:50px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+h3{
+    margin-top:0;
+}
+
+.checkbox{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    line-height:1.4;
+    font-size:15px;
+}
+
+.checkbox input{
+    margin-top:4px;
+}
+
+a{
+    color:#2AABEE;
+    text-decoration:underline;
 }
 
 button{
+    width:100%;
     margin-top:20px;
-    padding:10px 20px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2AABEE;
+    color:white;
     font-size:16px;
+    opacity:0.5;
+    pointer-events:none;
+    transition:0.2s;
+}
+
+button.active{
+    opacity:1;
+    pointer-events:auto;
 }
 </style>
 </head>
 
-<body style="background-color: #FFFFFF;">
+<body>
+
+<div class="container">
 
 <h3>Підтвердження</h3>
 
-<label>
-<input type="checkbox" id="agree">
-Я приймаю умови  <a href="https://example.com/privacy" target="_blank">
-Публічної оферти
-</a>
-, <br>погоджуюсь з 
-<a href="https://example.com/privacy" target="_blank">
-Політикою конфіденційності<br>
-</a>
-та даю згоду на обробку моїх персональних даних.
+<label class="checkbox">
+  <input type="checkbox" id="agree">
+
+  <span class="text">
+    <span>Я приймаю умови 
+      <a href="https://example.com/oferta" target="_blank">
+        Публічної оферти
+      </a>,
+    </span>
+
+    <span>
+      погоджуюсь з 
+      <a href="https://example.com/privacy" target="_blank">
+        Політикою конфіденційності
+      </a>
+    </span>
+
+    <span>
+      та даю згоду на обробку моїх персональних даних.
+    </span>
+  </span>
 </label>
 
-<br>
+<button id="btn" onclick="sendData()">Продовжити</button>
 
-<button onclick="sendData()">Продовжити</button>
+</div>
 
 <script>
+Telegram.WebApp.expand();
+
+let checkbox = document.getElementById("agree");
+let button = document.getElementById("btn");
+
+// активация кнопки только после галочки
+checkbox.addEventListener("change", () => {
+    if(checkbox.checked){
+        button.classList.add("active");
+    } else {
+        button.classList.remove("active");
+    }
+});
 
 function sendData(){
 
-    let checkbox = document.getElementById("agree");
-
     if(!checkbox.checked){
-        alert("Потрібно погодитися з політикою");
+        Telegram.WebApp.showAlert("Потрібно погодитися");
         return;
     }
 
     window.location.href = "https://t.me/advanced_yoga_bot?start=_dqwIyiXkGbBenibdxlwE";
     Telegram.WebApp.close();
-
 }
-
 </script>
 
 </body>
