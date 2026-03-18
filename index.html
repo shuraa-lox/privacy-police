@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Політика конфіденційності</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+body{
+    font-family: Arial;
+    padding:20px;
+}
+
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<h3>Підтвердження</h3>
+
+<label>
+<input type="checkbox" id="agree">
+Я згоден з <a href="https://example.com/privacy" target="_blank">
+політикою конфіденційності
+</a>
+</label>
+
+<br>
+
+<button onclick="sendData()">Продовжити</button>
+
+<script>
+
+function sendData(){
+
+    let checkbox = document.getElementById("agree");
+
+    if(!checkbox.checked){
+        alert("Потрібно погодитися з політикою");
+        return;
+    }
+
+    Telegram.WebApp.sendData("privacy_accepted");
+    Telegram.WebApp.close();
+
+}
+
+</script>
+
+</body>
+</html>
